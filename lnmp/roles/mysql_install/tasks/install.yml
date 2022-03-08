@@ -1,6 +1,7 @@
 #初始化安装mysql
 - name: mysql初始化
   shell: "{{ BASE_DIR }}/bin/mysqld --initialize-insecure --user={{ MYSQL_USER }} --basedir={{ BASE_DIR }}  --datadir={{ DATA_DIR }}"
+  when: unarchive_result.stdout == "0"
 
 - name: 拷贝启动脚本到/etc下
   copy: src={{ BASE_DIR }}/support-files/mysql.server dest=/etc/init.d/mysql
