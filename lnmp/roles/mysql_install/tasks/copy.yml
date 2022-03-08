@@ -22,7 +22,9 @@
 #  copy: src=mysql-{{ MYSQL_VER }}-linux-glibc2.12-x86_64.tar.gz dest={{ SOURCE_DIR }} owner={{ MYSQL_USER }} group={{ MYSQL_USER }}
 
 - name: 解压mysql包
-  unarchive: src={{ SOURCE_DIR }}/mysql-{{ MYSQL_VER }}-linux-glibc2.12-x86_64.tar.gz dest=/usr/local owner={{ MYSQL_USER }} group={{ MYSQL_USER }}
+  unarchive: src={{ SOURCE_DIR }}/mysql-{{ MYSQL_VER }}-linux-glibc2.12-x86_64.tar.gz dest=/usr/local owner={{ MYSQL_USER }} group={{ MYSQL_USER }} remote_src=yes
+  register:  unarchive_result
+  
 
 - name: 目录重命名
   shell: "mv /usr/local/mysql-{{ MYSQL_VER }}-linux-glibc2.12-x86_64 {{ BASE_DIR }} && chown -R {{ MYSQL_USER }}:{{ MYSQL_USER }} {{ BASE_DIR }}"
