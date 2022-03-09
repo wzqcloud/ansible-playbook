@@ -4,7 +4,8 @@
 #  when: unarchive_result.stdout == "0"
 
 - name: 拷贝启动脚本到/etc下
-  copy: src={{ BASE_DIR }}/support-files/mysql.server dest=/etc/init.d/mysql backup=yes owner=root group=root mode=0755
+#  copy: src={{ BASE_DIR }}/support-files/mysql.server dest=/etc/init.d/mysql backup=yes owner=root group=root mode=0755
+  shell: "cd {{ BASE_DIR }}/support-files && cp mysql.server /etc/init.d/mysql"
 
 - name: 修改启动脚本_1
   lineinfile:
@@ -29,5 +30,5 @@
 - name: 启动mysql并开机启动
   shell: "systemctl daemon-reload && systemctl enable mysqld && systemctl start mysqld"
 
-- name: 设置数据库root密码
-  shell: "bash {{ SOURCE_DIR }}/change_passwd.sh"
+#- name: 设置数据库root密码
+#  shell: "bash {{ SOURCE_DIR }}/change_passwd.sh"
